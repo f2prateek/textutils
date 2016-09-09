@@ -2,23 +2,21 @@ package main
 
 import (
 	"bufio"
-	"flag"
 	"fmt"
+	"log"
 	"os"
 	"strings"
 )
 
-var titleCmd = flag.Bool("title", false, "title case the input")
-
 func main() {
-	flag.Parse()
+	HandleFunc("title", title)
 
-	if *titleCmd {
-		title()
+	if err := Serve(); err != nil {
+		log.Fatal(err)
 	}
 }
 
-func title() {
+func title(args []string) {
 	scanner := bufio.NewScanner(os.Stdin)
 	for scanner.Scan() {
 		fmt.Println(strings.Title(scanner.Text()))
